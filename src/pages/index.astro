@@ -4,9 +4,12 @@ import Layout from "../layouts/Layout.astro";
 //microCMS呼び出し
 import { getBlogs } from "../library/microcms";
 const response = await getBlogs({ fields: ["id", "title"] });
+
+console.log(response.contents)
+
 ---
 
-<Layout title="My first blog with Astro">
+<Layout title="Yanagita Blog">
   <main>
     <ul>
       {
@@ -20,10 +23,13 @@ const response = await getBlogs({ fields: ["id", "title"] });
   </main>
 </Layout>
 
-<style>
+<style lang="scss">
   main {
     margin: auto;
     padding: 1em;
     max-width: 60ch;
+		p {
+			font-size: 30px;
+		}
   }
 </style>

@@ -11,8 +11,12 @@
   },
   "dependencies": {
     "@astrojs/check": "^0.7.0",
+    "@astrojs/netlify": "^5.2.1",
     "astro": "^4.10.1",
     "microcms-js-sdk": "^3.1.1",
     "typescript": "^5.4.5"
+  },
+  "devDependencies": {
+    "sass": "^1.77.4"
   }
 }
