@@ -8,6 +8,12 @@ const client = createClient({
 });
 
 //型定義
+interface Thumbnail {
+  url: string
+  height: number
+  width: number
+  alt: string
+}
 export type Blog = {
   id: string;
   createdAt: string;
@@ -16,6 +22,7 @@ export type Blog = {
   revisedAt: string;
   title: string;
   content: string;
+  thumbnail: Thumbnail;
 };
 export type BlogResponse = {
   totalCount: number;
@@ -38,3 +45,13 @@ export const getBlogDetail = async (
     queries,
   });
 };
+
+// 取得した日付を綺麗にする
+export function formatDate(dateString: string): string {
+  const date: Date = new Date(dateString);
+  const year: number = date.getFullYear();
+  const month: number = date.getMonth() + 1;
+  const day: number = date.getDate();
+
+  return `${year}.${month.toString().padStart(2, '0')}.${day.toString().padStart(2, '0')}`;
+}

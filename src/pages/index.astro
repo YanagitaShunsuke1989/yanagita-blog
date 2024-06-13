@@ -1,35 +1,52 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import Article from "../components/Article.astro";
 
 //microCMS呼び出し
 import { getBlogs } from "../library/microcms";
-const response = await getBlogs({ fields: ["id", "title"] });
-
-console.log(response.contents)
-
+const response = await getBlogs({ fields: ["id", "title", "thumbnail"] });
 ---
-
 <Layout title="Yanagita Blog">
+  <div class="heroimage">
+
+  </div>
   <main>
-    <ul>
+    <div class="list">
       {
-        response.contents.map((content: any) => (
-          <li>
-            <a href={content.id}>{content.title}</a>
-          </li>
+        response.contents.map((content) => (
+          <Article
+          id={content.id}
+          title={content.title}
+          thumbnail={content.thumbnail}
+          />
         ))
       }
-    </ul>
+    </div>
   </main>
 </Layout>
 
 <style lang="scss">
+  .heroimage {
+    background-color: #ccc;
+    @include media-pc {
+      height: rem(100);
+    }
+    @include media-sp {
+      height: vw(40);
+    }
+  }
   main {
     margin: auto;
-    padding: 1em;
-    max-width: 60ch;
+    padding: 120px 0;
+    max-width: 1000px;
 		p {
 			font-size: 30px;
 		}
+    .list {
+      display: flex;
+      flex-flow: row wrap;
+      row-gap: 40px;
+      justify-content: space-between;
+    }
   }
 </style>

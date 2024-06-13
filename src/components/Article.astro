@@ -1,0 +1,49 @@
+---
+interface Thumbnail {
+  url: string;
+  height: number;
+  width: number;
+  alt: string;
+}
+
+interface Props {
+  id: string;
+  title: string;
+  thumbnail: Thumbnail;
+}
+
+const { id, title, thumbnail } = Astro.props;
+---
+
+<article class="item">
+  <a href={id}>
+    <div class="thumbnail" transition:name=`article-thumbnail-${id}`>
+      <img src={thumbnail.url} alt={thumbnail.alt} />
+    </div>
+    <div class="summary">
+      <h2>{title}</h2>
+    </div>
+  </a>
+</article>
+
+<style lang="scss">
+  .item {
+    width: 300px;
+    transition: scale .2s ease-in-out;
+    &:hover {
+      scale: 1.03;
+      z-index: 100;
+    }
+
+    .thumbnail {
+      width: 100%;
+      aspect-ratio: 3 / 1;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+  }
+</style>
