@@ -48,13 +48,13 @@ const DateTime = formatDate(publishedAt).replaceAll("/", "-");
 
 <style lang="scss">
   .item {
-    border-radius: rem(10);
     overflow: hidden;
     transition:
       translate 0.3s $easeInOutBack,
       box-shadow 0.3s ease;
 
     @include media-pc {
+      border-radius: rem(10);
       &:hover {
         z-index: 100;
         background: #ffffff;
@@ -65,6 +65,7 @@ const DateTime = formatDate(publishedAt).replaceAll("/", "-");
       }
     }
     @include media-sp {
+      border-radius: vw(10);
     }
 
     .thumbnail {
@@ -78,26 +79,44 @@ const DateTime = formatDate(publishedAt).replaceAll("/", "-");
       }
     }
     .summary {
-      padding: rem(10) rem(10) rem(20);
-      // margin-top: rem(10);
-      h2 {
-        font-size: rem(14);
+      @include media-pc {
+        padding: rem(10) rem(10) rem(20);
+        h2 {
+          font-size: rem(14);
+        }
       }
+      @include media-sp {
+        padding: vw(10) 0 vw(20);
+        h2 {
+          font-size: vw(13);
+        }
+      }
+
       .data {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-top: rem(20);
+        @include media-pc {
+          margin-top: rem(20);
+          font-size: rem(11);
+        }
+        @include media-sp {
+          margin-top: vw(20);
+          font-size: vw(10);
+        }
         .category {
           width: max-content;
-          font-size: rem(11);
           padding: 0.1em 0.8em;
           background-color: rgb(52, 52, 52);
           color: #fff;
-          border-radius: rem(4);
+          @include media-pc {
+            border-radius: rem(4);
+          }
+          @include media-sp {
+            border-radius: vw(4);
+          }
         }
         time {
-          font-size: rem(11);
         }
       }
     }

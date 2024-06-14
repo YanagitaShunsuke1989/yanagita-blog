@@ -50,63 +50,15 @@ const filteredPosts = response.contents.filter((post) =>
 
 <style lang="scss">
   main {
-    .heroimage {
-      background-color: #ccc;
-      @include media-pc {
-        height: rem(200);
-      }
-      @include media-sp {
-        height: vw(40);
-      }
-    }
-
     .wrapper {
       margin: auto;
       @include media-pc {
-        max-width: rem(1000);
+        width: rem(1000);
         margin-block: rem(80);
       }
       @include media-sp {
-      }
-    }
-
-    .categories {
-      h2 {
-        text-align: center;
-        @include media-pc {
-          font-size: rem(20);
-        }
-        @include media-sp {
-        }
-      }
-      ul {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        @include media-pc {
-          margin-top: rem(20);
-        }
-        @include media-sp {
-        }
-        li {
-          position: relative;
-          a {
-            padding-inline: 1em;
-            font-size: rem(14);
-          }
-          &:not(:last-of-type) {
-            &::after {
-              position: absolute;
-              inset: 54% 0 auto auto;
-              translate: 0 -50%;
-              content: "";
-              display: block;
-              width: 1px;
-              height: 1em;
-              background-color: #ccc;
-            }
-          }
-        }
+        max-width: rem(335);
+        margin-block: vw(40);
       }
     }
   }

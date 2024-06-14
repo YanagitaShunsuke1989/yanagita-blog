@@ -46,11 +46,21 @@ const DateTime = formatDate(blog.publishedAt).replaceAll(".", "-");
       }
     }
     article {
-      max-width: 800px;
-      margin: 120px auto;
-
+      @include media-pc {
+        width: rem(800);
+        margin: rem(120) auto;
+      }
+      @include media-sp {
+        width: vw(335);
+        margin: vw(40) auto;
+      }
       .content {
-        margin-top: 80px;
+        @include media-pc {
+          margin-top: rem(80);
+        }
+        @include media-sp {
+          margin-top: vw(40);
+        }
         h2 {
           font-size: 32px;
         }
@@ -62,5 +72,4 @@ const DateTime = formatDate(blog.publishedAt).replaceAll(".", "-");
   }
 </style>
 
-<script>
-</script>
+<script></script>

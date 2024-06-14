@@ -17,41 +17,60 @@
   .l-header {
     position: relative;
     background-color: #333;
-    height: rem(60);
+    @include media-pc {
+      height: rem(60);
+    }
+    @include media-sp {
+      height: vw(40);
+    }
     &__inner {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      width: rem(1000);
       height: 100%;
       margin-inline: auto;
+      @include media-pc {
+        width: rem(1000);
+      }
+      @include media-sp {
+        width: vw(335);
+      }
     }
     h1 {
-      transition: scale .3s $easeInOutBack;
       a {
-        font-size: rem(20);
-        color: #fff;
-        font-weight: bold;
-        letter-spacing: .07em;
+          color: #fff;
+          font-weight: bold;
+          letter-spacing: 0.07em;
+        }
+      @include media-pc {
+        transition: scale 0.3s $easeInOutBack;
+        a {
+          font-size: rem(20);
+        }
+        &:hover {
+          scale: 1.1;
+        }
       }
-      &:hover {
-        scale: 1.1;
-      }
-    }
-    &__nav {
-    }
-    &__list {
-      display: flex;
-      flex-flow: row wrap;
-      column-gap: 1em;
-      justify-content: flex-end;
-      align-items: center;
-    }
-    &__item {
-      padding: .5em;
-      a {
-        color: #fff;
+      @include media-sp {
+        a {
+          font-size: vw(20);
+        }
       }
     }
+    // &__nav {
+    // }
+    // &__list {
+    //   display: flex;
+    //   flex-flow: row wrap;
+    //   column-gap: 1em;
+    //   justify-content: flex-end;
+    //   align-items: center;
+    // }
+    // &__item {
+    //   padding: 0.5em;
+    //   a {
+    //     color: #fff;
+    //   }
+    // }
   }
 </style>

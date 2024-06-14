@@ -39,10 +39,12 @@ const response = await getBlogs({ fields: ["id", "title", "thumbnail", "category
     .wrapper {
       margin: auto;
       @include media-pc {
-        max-width: rem(1000);
+        width: rem(1000);
         margin-block: rem(80);
       }
       @include media-sp {
+        max-width: rem(335);
+        margin-block: vw(40);
       }
     }
   }

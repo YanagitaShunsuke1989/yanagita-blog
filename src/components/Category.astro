@@ -2,60 +2,67 @@
 import { getCategories } from "../library/microcms";
 const responseCategory = await getCategories({ fields: ["title", "slug"] });
 ---
+
 <section class="categories">
   <h2>カテゴリー</h2>
-<ul>
-  {
-    responseCategory.contents.map((content) => (
-      <li class={`category-${content.slug}`}>
-        <a href={`/posts/category/${content.slug}/`}>{content.title}</a>
-      </li>
-    ))
-  }
-</ul>
-
-
-<style lang="scss">
-  .categories {
-    h2 {
-      text-align: center;
-      @include media-pc {
-        font-size: rem(20);
-      }
-      @include media-sp {
-      }
+  <ul>
+    {
+      responseCategory.contents.map((content) => (
+        <li class={`category-${content.slug}`}>
+          <a href={`/posts/category/${content.slug}/`}>{content.title}</a>
+        </li>
+      ))
     }
-    ul {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      @include media-pc {
-        margin-top: rem(20);
-      }
-      @include media-sp {
-      }
-      li {
-        position: relative;
-        &.category-html {
-          color: red;
+  </ul>
+
+  <style lang="scss">
+    .categories {
+      h2 {
+        text-align: center;
+        @include media-pc {
+          font-size: rem(20);
         }
-        a {
-          padding-inline: 1em;
-          font-size: rem(14);
+        @include media-sp {
+          font-size: vw(14);
         }
-        &:not(:last-of-type) {
-          &::after {
-            position: absolute;
-            inset: 54% 0 auto auto;
-            translate: 0 -50%;
-            content: "";
-            display: block;
-            width: 1px;
-            height: 1em;
-            background-color: #ccc;
+      }
+      ul {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        @include media-pc {
+          margin-top: rem(20);
+        }
+        @include media-sp {
+          margin-top: vw(20);
+        }
+        li {
+          position: relative;
+          &.category-html {
+          }
+          a {
+            padding-inline: 1em;
+            @include media-pc {
+              font-size: rem(14);
+            }
+            @include media-sp {
+              font-size: vw(12);
+            }
+          }
+          &:not(:last-of-type) {
+            &::after {
+              position: absolute;
+              inset: 54% 0 auto auto;
+              translate: 0 -50%;
+              content: "";
+              display: block;
+              width: 1px;
+              height: 1em;
+              background-color: #ccc;
+            }
           }
         }
       }
     }
-  }
-</style>
+  </style>
+</section>
