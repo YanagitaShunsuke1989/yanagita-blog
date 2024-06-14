@@ -1,0 +1,113 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+import Article from "../../../components/Article.astro";
+import ArticleList from "../../../components/ArticleList.astro";
+import Category from "../../../components/Category.astro";
+import { getBlogs, getCategories } from "../../../library/microcms";
+
+// 詳細記事ページの全パスを取得
+export async function getStaticPaths() {
+  const response = await getCategories({ fields: ["slug"] });
+  return response.contents.map((content: any) => ({
+    params: {
+      categoryslug: content.slug,
+    },
+  }));
+}
+
+// microCMS呼び出し
+const { categoryslug } = Astro.params;
+const response = await getBlogs({
+  fields: ["id", "title", "thumbnail", "category", "publishedAt"],
+});
+
+// 記事のフィルタリング
+const filteredPosts = response.contents.filter((post) =>
+  post.category.some((h) => h.id === categoryslug)
+);
+---
+
+<Layout title="category">
+  <main>
+    <div class="wrapper">
+      <Category />
+      <ArticleList>
+        {
+          filteredPosts.map((content) => (
+            <Article
+              id={content.id}
+              title={content.title}
+              thumbnail={content.thumbnail}
+              category={content.category[0]}
+              publishedAt={content.publishedAt}
+            />
+          ))
+        }
+      </ArticleList>
+    </div>
+  </main>
+</Layout>
+
+<style lang="scss">
+  main {
+    .heroimage {
+      background-color: #ccc;
+      @include media-pc {
+        height: rem(200);
+      }
+      @include media-sp {
+        height: vw(40);
+      }
+    }
+
+    .wrapper {
+      margin: auto;
+      @include media-pc {
+        max-width: rem(1000);
+        margin-block: rem(80);
+      }
+      @include media-sp {
+      }
+    }
+
+    .categories {
+      h2 {
+        text-align: center;
+        @include media-pc {
+          font-size: rem(20);
+        }
+        @include media-sp {
+        }
+      }
+      ul {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        @include media-pc {
+          margin-top: rem(20);
+        }
+        @include media-sp {
+        }
+        li {
+          position: relative;
+          a {
+            padding-inline: 1em;
+            font-size: rem(14);
+          }
+          &:not(:last-of-type) {
+            &::after {
+              position: absolute;
+              inset: 54% 0 auto auto;
+              translate: 0 -50%;
+              content: "";
+              display: block;
+              width: 1px;
+              height: 1em;
+              background-color: #ccc;
+            }
+          }
+        }
+      }
+    }
+  }
+</style>

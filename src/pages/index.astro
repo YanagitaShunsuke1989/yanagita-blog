@@ -1,52 +1,49 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Article from "../components/Article.astro";
-
-//microCMS呼び出し
+import ArticleList from "../components/ArticleList.astro";
+import Category from "../components/Category.astro";
 import { getBlogs } from "../library/microcms";
-const response = await getBlogs({ fields: ["id", "title", "thumbnail"] });
----
-<Layout title="Yanagita Blog">
-  <div class="heroimage">
 
-  </div>
+const response = await getBlogs({ fields: ["id", "title", "thumbnail", "category", "publishedAt"] });
+// console.log(response.contents);
+// response.contents.map((content) => (
+//   console.log(content)
+// ))
+
+---
+
+<Layout title="Yanagita Blog">
   <main>
-    <div class="list">
-      {
-        response.contents.map((content) => (
-          <Article
-          id={content.id}
-          title={content.title}
-          thumbnail={content.thumbnail}
-          />
-        ))
-      }
+    <div class="wrapper">
+      <Category />
+      <ArticleList>
+        {
+          response.contents.map((content) => (
+            <Article
+              id={content.id}
+              title={content.title}
+              thumbnail={content.thumbnail}
+              category={content.category[0]}
+              publishedAt={content.publishedAt}
+            />
+          ))
+        }
+      </ArticleList>
     </div>
   </main>
 </Layout>
 
 <style lang="scss">
-  .heroimage {
-    background-color: #ccc;
-    @include media-pc {
-      height: rem(100);
-    }
-    @include media-sp {
-      height: vw(40);
-    }
-  }
   main {
-    margin: auto;
-    padding: 120px 0;
-    max-width: 1000px;
-		p {
-			font-size: 30px;
-		}
-    .list {
-      display: flex;
-      flex-flow: row wrap;
-      row-gap: 40px;
-      justify-content: space-between;
+    .wrapper {
+      margin: auto;
+      @include media-pc {
+        max-width: rem(1000);
+        margin-block: rem(80);
+      }
+      @include media-sp {
+      }
     }
   }
 </style>

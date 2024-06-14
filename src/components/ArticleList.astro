@@ -1,0 +1,31 @@
+<section class="articles">
+  <h2>記事一覧</h2>
+  <div class="list">
+    <slot />
+  </div>
+</section>
+
+<style lang="scss">
+  .articles {
+    @include media-pc {
+      margin-top: rem(80);
+    }
+    @include media-sp {
+    }
+    h2 {
+      font-size: rem(20);
+      text-align: center;
+    }
+    .list {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: rem(40);
+      @include media-pc {
+        margin-top: rem(40);
+      }
+      @include media-sp {
+      }
+    }
+  }
+</style>

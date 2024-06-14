@@ -4,22 +4,39 @@
 
 <header class="l-header">
   <div class="l-header__inner">
-    <nav class="l-header__nav">
+    <h1><a href="/">BLOG</a></h1>
+    <!-- <nav class="l-header__nav">
       <ul class="l-header__list">
         <li class="l-header__item"><a href="/">HOME</a></li>
       </ul>
-    </nav>
+    </nav> -->
   </div>
 </header>
 
 <style lang="scss">
   .l-header {
     position: relative;
-    z-index: 9999;
     background-color: #333;
+    height: rem(60);
     &__inner {
-      width: 1000px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: rem(1000);
+      height: 100%;
       margin-inline: auto;
+    }
+    h1 {
+      transition: scale .3s $easeInOutBack;
+      a {
+        font-size: rem(20);
+        color: #fff;
+        font-weight: bold;
+        letter-spacing: .07em;
+      }
+      &:hover {
+        scale: 1.1;
+      }
     }
     &__nav {
     }

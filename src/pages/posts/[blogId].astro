@@ -1,7 +1,6 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import { getBlogs, getBlogDetail, formatDate } from "../library/microcms";
-export const prerender = true;
+import Layout from "../../layouts/Layout.astro";
+import { getBlogs, getBlogDetail, formatDate } from "../../library/microcms";
 
 // 詳細記事ページの全パスを取得
 export async function getStaticPaths() {
@@ -37,8 +36,6 @@ const DateTime = formatDate(blog.publishedAt).replaceAll(".", "-");
 
 <style lang="scss">
   main {
-    margin: 80px 200px;
-    border: 1px solid #6f6f6f;
     .eyecatch {
       width: 100%;
       aspect-ratio: 3 / 1;
@@ -54,9 +51,6 @@ const DateTime = formatDate(blog.publishedAt).replaceAll(".", "-");
 
       .content {
         margin-top: 80px;
-        h1 {
-          font-size: 40px;
-        }
         h2 {
           font-size: 32px;
         }
@@ -68,4 +62,5 @@ const DateTime = formatDate(blog.publishedAt).replaceAll(".", "-");
   }
 </style>
 
-<script></script>
+<script>
+</script>

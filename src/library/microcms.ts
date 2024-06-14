@@ -14,6 +14,17 @@ interface Thumbnail {
   width: number
   alt: string
 }
+
+interface Category {
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+  revisedAt: string;
+  title: string;
+  slug: string;
+};
+
 export type Blog = {
   id: string;
   createdAt: string;
@@ -23,7 +34,9 @@ export type Blog = {
   title: string;
   content: string;
   thumbnail: Thumbnail;
+  category: Category[];
 };
+
 export type BlogResponse = {
   totalCount: number;
   offset: number;
@@ -31,10 +44,22 @@ export type BlogResponse = {
   contents: Blog[];
 };
 
+export type CategoryResponse = {
+  totalCount: number;
+  offset: number;
+  limit: number;
+  contents: Category[];
+};
+
 //APIの呼び出し
 export const getBlogs = async (queries?: MicroCMSQueries) => {
   return await client.get<BlogResponse>({ endpoint: "blogs", queries });
 };
+
+export const getCategories = async (queries?: MicroCMSQueries) => {
+  return await client.get<CategoryResponse>({ endpoint: "category", queries });
+};
+
 export const getBlogDetail = async (
   contentId: string,
   queries?: MicroCMSQueries
@@ -53,5 +78,5 @@ export function formatDate(dateString: string): string {
   const month: number = date.getMonth() + 1;
   const day: number = date.getDate();
 
-  return `${year}.${month.toString().padStart(2, '0')}.${day.toString().padStart(2, '0')}`;
+  return `${year}/${month.toString().padStart(2, '0')}/${day.toString().padStart(2, '0')}`;
 }
