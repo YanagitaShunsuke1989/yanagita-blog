@@ -26,7 +26,7 @@ const DateTime = formatDate(blog.publishedAt).replaceAll(".", "-");
     <div class="eyecatch" transition:name=`article-thumbnail-${blogId}`>
       <img src={blog.thumbnail.url} alt={blog.thumbnail.alt} />
     </div>
-    <article>
+    <article data-pagefind-body>
       <p class="time">
         <time class="time" datetime={DateTime}>{PostingTime}</time>
       </p>

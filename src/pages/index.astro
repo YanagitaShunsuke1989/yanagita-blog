@@ -2,8 +2,8 @@
 import Layout from "../layouts/Layout.astro";
 import Article from "../components/Article.astro";
 import ArticleList from "../components/ArticleList.astro";
-import Category from "../components/Category.astro";
 import Search from "../components/Search.astro";
+import Category from "../components/Category.astro";
 import { getBlogs } from "../library/microcms";
 
 const response = await getBlogs({ fields: ["id", "title", "thumbnail", "category", "publishedAt"] });

@@ -17,6 +17,12 @@ const responseCategory = await getCategories({ fields: ["title", "slug"] });
 
   <style lang="scss">
     .categories {
+      @include media-pc {
+        margin-top: rem(80);
+      }
+      @include media-sp {
+        margin-top: vw(80);
+      }
       h2 {
         text-align: center;
         @include media-pc {
