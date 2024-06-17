@@ -3,6 +3,7 @@ import Layout from "../layouts/Layout.astro";
 import Article from "../components/Article.astro";
 import ArticleList from "../components/ArticleList.astro";
 import Category from "../components/Category.astro";
+import Search from "../components/Search.astro";
 import { getBlogs } from "../library/microcms";
 
 const response = await getBlogs({ fields: ["id", "title", "thumbnail", "category", "publishedAt"] });
@@ -16,6 +17,7 @@ const response = await getBlogs({ fields: ["id", "title", "thumbnail", "category
 <Layout title="Yanagita Blog">
   <main>
     <div class="wrapper">
+      <Search/>
       <Category />
       <ArticleList>
         {

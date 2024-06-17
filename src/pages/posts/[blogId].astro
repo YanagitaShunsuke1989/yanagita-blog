@@ -17,6 +17,8 @@ const { blogId } = Astro.params;
 const blog = await getBlogDetail(blogId as string);
 const PostingTime = formatDate(blog.publishedAt);
 const DateTime = formatDate(blog.publishedAt).replaceAll(".", "-");
+
+console.log(blog);
 ---
 
 <Layout title={blog.title}>
@@ -25,10 +27,12 @@ const DateTime = formatDate(blog.publishedAt).replaceAll(".", "-");
       <img src={blog.thumbnail.url} alt={blog.thumbnail.alt} />
     </div>
     <article>
-      <h1 class="title">{blog.title}</h1>
-      <div class="data">
+      <p class="time">
         <time class="time" datetime={DateTime}>{PostingTime}</time>
-      </div>
+      </p>
+      <h1 class="title">{blog.title}</h1>
+      <p class="category">{blog.category[0].title}</p>
+
       <div class="content" set:html={blog.content} />
     </article>
   </main>
@@ -49,24 +53,72 @@ const DateTime = formatDate(blog.publishedAt).replaceAll(".", "-");
       @include media-pc {
         width: rem(800);
         margin: rem(120) auto;
+        .time {
+          font-size: rem(14);
+          text-align: right;
+        }
+        h1 {
+          font-size: rem(40);
+        }
+        .category {
+        }
       }
       @include media-sp {
         width: vw(335);
         margin: vw(40) auto;
+        h1 {
+          font-size: rem(30);
+        }
       }
-      .content {
-        @include media-pc {
-          margin-top: rem(80);
-        }
-        @include media-sp {
-          margin-top: vw(40);
-        }
+    }
+  }
+</style>
+<style lang="scss" is:global>
+  article {
+    .content {
+      @include media-pc {
+        margin-top: rem(80);
         h2 {
-          font-size: 32px;
+          font-size: rem(32);
         }
         h3 {
-          font-size: 28px;
+          font-size: rem(28);
         }
+        h4 {
+          font-size: rem(24);
+        }
+        h5 {
+          font-size: rem(20);
+        }
+
+        a {
+          text-decoration: underline;
+        }
+        strong {
+          font-weight: bold;
+        }
+        u {
+          text-decoration: underline;
+        }
+        s {
+          text-decoration: line-through;
+        }
+        ul {
+          li {
+            &:before {
+              display: inline-block;
+              content: "・";
+            }
+          }
+        }
+        ol {
+          li {
+
+          }
+        }
+      }
+      @include media-sp {
+        margin-top: vw(40);
       }
     }
   }
