@@ -4,6 +4,18 @@ import "@pagefind/default-ui/css/ui.css";
 
 <div class="search"></div>
 
+<style lang="scss">
+  .search {
+    margin-inline: auto;
+    @include media-pc {
+      width: rem(400);
+      }
+      @include media-sp {
+        width: vw(240);
+      }
+  }
+</style>
+
 <script>
   import { PagefindUI } from "@pagefind/default-ui";
   document.addEventListener('astro:page-load', function () {
