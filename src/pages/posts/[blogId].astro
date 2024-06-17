@@ -18,7 +18,7 @@ const blog = await getBlogDetail(blogId as string);
 const PostingTime = formatDate(blog.publishedAt);
 const DateTime = formatDate(blog.publishedAt).replaceAll(".", "-");
 
-console.log(blog);
+// console.log(blog);
 ---
 
 <Layout title={blog.title}>
