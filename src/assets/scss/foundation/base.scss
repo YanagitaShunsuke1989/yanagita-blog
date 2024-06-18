@@ -13,7 +13,7 @@ body {
   line-height: 1.6;
   @include font-gothic($weight-regular);
   color: $color-font;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.1em;
   @include media-pc {
     font-size: rem(16);
   }
@@ -28,7 +28,7 @@ img {
 }
 
 a {
-  color: $color-black;
+  color: $color-font;
   text-decoration: none;
 }
 

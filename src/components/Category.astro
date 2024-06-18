@@ -6,6 +6,9 @@ const responseCategory = await getCategories({ fields: ["title", "slug"] });
 <section class="categories">
   <h2>カテゴリー</h2>
   <ul>
+    <li class="category-All">
+      <a href="/">All</a>
+    </li>
     {
       responseCategory.contents.map((content) => (
         <li class={`category-${content.slug}`}>

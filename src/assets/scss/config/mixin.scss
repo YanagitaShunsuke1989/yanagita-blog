@@ -11,6 +11,11 @@
   font-weight: $weight;
 }
 
+@mixin font-Manrope($weight:null) {
+  font-family: 'Manrope', sans-serif;
+  font-weight: $weight;
+}
+
 // @mixin font-Poppins($weight:null) {
 //   font-family: 'Poppins', sans-serif;
 //   font-weight: $weight;

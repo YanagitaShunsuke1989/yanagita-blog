@@ -1,7 +1,9 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import { getBlogs, getBlogDetail, formatDate } from "../../library/microcms";
-
+// import { Image } from 'astro:assets';
+import quotationImage from "../../assets/images/common/icon-quotation.svg";
+// import myImage from "/assets/images/common/icon-quotation.svg";
 // 詳細記事ページの全パスを取得
 export async function getStaticPaths() {
   const response = await getBlogs({ fields: ["id"] });
@@ -67,15 +69,107 @@ const DateTime = formatDate(blog.publishedAt).replaceAll(".", "-");
         width: vw(335);
         margin: vw(40) auto;
         h1 {
-          font-size: rem(30);
+          font-size: vw(24);
         }
       }
     }
   }
 </style>
+
+<!-- 記事内 CSS -->
 <style lang="scss" is:global>
   article {
     .content {
+      line-height: 2;
+      & > * {
+        margin-top: 1em;
+        &:first-child {
+          margin-top: 0;
+        }
+      }
+      ul {
+        li {
+          &:before {
+            display: inline-block;
+            content: "・";
+          }
+        }
+      }
+      ol {
+        counter-reset: number;
+        li {
+          &::before {
+            counter-increment: number;
+            content: counter(number) ".";
+            margin-inline: 0.2em;
+          }
+        }
+      }
+      strong {
+        font-weight: bold;
+      }
+      u {
+        text-decoration: underline;
+      }
+      s {
+        text-decoration: line-through;
+      }
+      table {
+        border-collapse: collapse;
+        th {
+          background-color: $color-lightgray;
+        }
+        th,
+        td {
+          padding: 0.5em 1em;
+          border: solid 1px $color-gray;
+        }
+      }
+      pre {
+        position: relative;
+        padding: 1em 2em;
+        overflow: auto;
+        border-left: 0.4em solid $color-gray;
+        background: $color-lightgray;
+        code {
+          font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
+        }
+        .code-copy {
+          position: absolute;
+          inset: 1em 1em auto auto;
+          width: max-content;
+          height: max-content;
+          @include font-Manrope(400);
+
+          .text {
+            position: relative;
+            padding: .6em 1.1em;
+            background-color: #fff;
+            line-height: 1;
+            // border: 1px solid $color-gray;
+            cursor: copy;
+            z-index: 2;
+          }
+
+          .message {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            translate: -50% 0;
+            width: 99%;
+            padding: .5em;
+            background-color: #87ffc3;
+            font-size: rem(10);
+            text-align: center;
+            z-index: 1;
+            transition: top 0.3s $easeInOutBack;
+            &.is-show {
+              top: 105%;
+            }
+          }
+        }
+      }
+
       @include media-pc {
         margin-top: rem(80);
         h2 {
@@ -90,38 +184,107 @@ const DateTime = formatDate(blog.publishedAt).replaceAll(".", "-");
         h5 {
           font-size: rem(20);
         }
-
+        p {
+        }
         a {
           text-decoration: underline;
+          &:hover {
+            text-decoration: none;
+          }
         }
-        strong {
-          font-weight: bold;
-        }
-        u {
-          text-decoration: underline;
-        }
-        s {
-          text-decoration: line-through;
-        }
-        ul {
-          li {
-            &:before {
-              display: inline-block;
-              content: "・";
+        .code-copy {
+          .text {
+            transition: scale 0.3s $easeInCubic;
+            transition-property: color, background-color;
+            font-size: rem(16);
+            &:hover {
+              color: #fff;
+              background-color: $color-gray;
             }
           }
-        }
-        ol {
-          li {
-
+          .message {
+            font-size: rem(10);
           }
         }
+        // blockquote {
+        //   padding: 2em;
+        //   background-color: $color-lightgray;
+        //   &::before {
+        //     content: "";
+        //     display: block;
+        //     width: rem(40);
+        //     aspect-ratio: 1;
+        //     background: url(quotationImage) center center no-repeat;
+        //   }
+        // }
       }
       @include media-sp {
-        margin-top: vw(40);
+        margin-top: vw(20);
+        h2 {
+          font-size: vw(22);
+        }
+        h3 {
+          font-size: vw(20);
+        }
+        h4 {
+          font-size: vw(18);
+        }
+        h5 {
+          font-size: vw(16);
+        }
+        p {
+        }
+        a {
+          text-decoration: underline;
+          &:hover {
+            text-decoration: none;
+          }
+        }
+        .code-copy {
+          .message {
+            font-size: vw(10);
+          }
+        }
       }
     }
   }
 </style>
 
-<script></script>
+<script>
+  class CodeCopy {
+    pre: any;
+    code: any;
+    constructor() {
+      this.pre = document.getElementsByTagName("pre");
+      this.init();
+    }
+    init() {
+      [...this.pre].forEach((element) => {
+        const createTag =
+          "<button class='code-copy'><span class='text'>Copy</span><span class='message'>Success!!</span></button>";
+        element.insertAdjacentHTML("beforeend", createTag);
+        this.click(element);
+      });
+    }
+    click(element: any) {
+      const button = element.querySelector(".code-copy");
+      button.addEventListener("click", (e: any) => {
+        const code = element.getElementsByTagName("code")[0].innerText;
+        navigator.clipboard.writeText(code);
+        this.message(button);
+      });
+    }
+    message(button: any) {
+      const message = button.querySelector(".code-copy .message");
+      button.disabled = true;
+      message.classList.add("is-show");
+      setTimeout(() => {
+        message.classList.remove("is-show");
+        button.disabled = false;
+      }, 2000);
+    }
+  }
+  document.addEventListener("astro:page-load", () => {
+    new CodeCopy();
+  });
+</script>

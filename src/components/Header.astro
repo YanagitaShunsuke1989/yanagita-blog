@@ -15,8 +15,11 @@
 
 <style lang="scss">
   .l-header {
-    position: relative;
-    background-color: #333;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 9999;
+    mix-blend-mode: difference;
     @include media-pc {
       height: rem(60);
     }
@@ -38,9 +41,10 @@
     }
     h1 {
       a {
-          color: #fff;
+          color: $color-gray;
           font-weight: bold;
           letter-spacing: 0.07em;
+
         }
       @include media-pc {
         transition: scale 0.3s $easeInOutBack;

@@ -9,19 +9,19 @@ import "@pagefind/default-ui/css/ui.css";
     margin-inline: auto;
     @include media-pc {
       width: rem(400);
-      }
-      @include media-sp {
-        width: vw(240);
-      }
+    }
+    @include media-sp {
+      width: vw(240);
+    }
   }
 </style>
 
 <script>
   import { PagefindUI } from "@pagefind/default-ui";
-  document.addEventListener('astro:page-load', function () {
+  document.addEventListener("astro:page-load", () => {
     new PagefindUI({
-    element: ".search",
-    pageSize: 5
+      element: ".search",
+      pageSize: 5,
+    });
   });
-  })
 </script>

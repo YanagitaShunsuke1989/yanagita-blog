@@ -107,8 +107,10 @@ const DateTime = formatDate(publishedAt).replaceAll("/", "-");
         .category {
           width: max-content;
           padding: 0.1em 0.8em;
-          background-color: rgb(52, 52, 52);
+          background-color: $color-gray;
           color: #fff;
+          @include font-Manrope(200);
+
           @include media-pc {
             border-radius: rem(4);
           }
@@ -117,6 +119,9 @@ const DateTime = formatDate(publishedAt).replaceAll("/", "-");
           }
         }
         time {
+          color: $color-gray;
+          letter-spacing: .05em;
+          @include font-Manrope(200);
         }
       }
     }
