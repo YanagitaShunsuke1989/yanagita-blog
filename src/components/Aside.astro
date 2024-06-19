@@ -43,9 +43,15 @@ const filteredPosts = response.contents.filter((post) =>
 <style lang="scss">
   aside {
     flex: 1;
+    @include media-sp {
+      margin-top: vw(40);
+    }
     h2 {
       @include media-pc {
         font-size: rem(30);
+      }
+      @include media-sp {
+        font-size: vw(22);
       }
     }
     .related-list {
@@ -56,7 +62,7 @@ const filteredPosts = response.contents.filter((post) =>
         margin-top: rem(20);
       }
       @include media-sp {
-        margin-top: vw(80);
+        margin-top: vw(20);
       }
     }
   }
@@ -65,13 +71,28 @@ const filteredPosts = response.contents.filter((post) =>
 <script>
   import Swiper from "swiper";
   import "swiper/css/bundle";
-  function relatedSliderSP() {
-    const kvSwiper = new Swiper("aside .related-alider", {
+
+  const mediaQuery = window.matchMedia("(min-width: 768px)");
+  let relatedSwiper: any;
+
+  function relatedSlider() {
+    relatedSwiper = new Swiper("aside .related-alider", {
       slidesPerView: 1.8,
       speed: 400,
       spaceBetween: 20,
     });
   }
 
-  relatedSliderSP();
+  function handleTabletChange(e: any) {
+    if (!e.matches) {
+      relatedSlider();
+    } else {
+      relatedSwiper.destroy(false, true);
+    }
+  }
+
+  mediaQuery.addEventListener("change", handleTabletChange);
+  handleTabletChange(mediaQuery);
+
+  document.addEventListener("astro:page-load", () => {});
 </script>
