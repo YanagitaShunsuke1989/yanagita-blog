@@ -7,7 +7,7 @@ const responseCategory = await getCategories({ fields: ["title", "slug"] });
   <h2>カテゴリー</h2>
   <ul>
     <li class="category-All">
-      <a href="/">All</a>
+      <a href="/posts/">All</a>
     </li>
     {
       responseCategory.contents.map((content) => (

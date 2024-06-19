@@ -1,0 +1,77 @@
+---
+import RelatedArticle from "./RelatedArticle.astro";
+import { getBlogs } from "../library/microcms";
+
+interface Props {
+  category: string;
+}
+
+// microCMS呼び出し
+const { category } = Astro.props;
+const response = await getBlogs({
+  fields: ["id", "title", "thumbnail", "category", "publishedAt"],
+});
+
+response.contents.map((e) => console.log(e.category));
+console.log(category);
+
+// 記事のフィルタリング
+const filteredPosts = response.contents.filter((post) =>
+  post.category.some((h) => h.id === category),
+);
+---
+
+<aside>
+  <h2>関連記事</h2>
+  <div class="swiper related-alider">
+    <div class="related-list swiper-wrapper">
+      {
+        filteredPosts.map((content) => (
+          <RelatedArticle
+            id={content.id}
+            title={content.title}
+            thumbnail={content.thumbnail}
+            category={content.category[0]}
+            publishedAt={content.publishedAt}
+          />
+        ))
+      }
+    </div>
+  </div>
+</aside>
+
+<style lang="scss">
+  aside {
+    flex: 1;
+    h2 {
+      @include media-pc {
+        font-size: rem(30);
+      }
+    }
+    .related-list {
+      display: flex;
+      @include media-pc {
+        flex-flow: column wrap;
+        row-gap: rem(20);
+        margin-top: rem(20);
+      }
+      @include media-sp {
+        margin-top: vw(80);
+      }
+    }
+  }
+</style>
+
+<script>
+  import Swiper from "swiper";
+  import "swiper/css/bundle";
+  function relatedSliderSP() {
+    const kvSwiper = new Swiper("aside .related-alider", {
+      slidesPerView: 1.8,
+      speed: 400,
+      spaceBetween: 20,
+    });
+  }
+
+  relatedSliderSP();
+</script>

@@ -1,0 +1,129 @@
+---
+import { formatDate } from "../library/microcms";
+
+interface Thumbnail {
+  url: string;
+  height: number;
+  width: number;
+  alt: string;
+}
+interface Category {
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+  revisedAt: string;
+  title: string;
+  slug: string;
+}
+
+interface Props {
+  id: string;
+  title: string;
+  thumbnail: Thumbnail;
+  category: Category;
+  publishedAt: string;
+}
+
+const { id, title, thumbnail, category, publishedAt } = Astro.props;
+
+const PostingTime = formatDate(publishedAt);
+const DateTime = formatDate(publishedAt).replaceAll("/", "-");
+---
+
+<article class="item swiper-slide">
+  <a href=`/posts/${id}`>
+    <div class="thumbnail">
+      <img src={thumbnail.url} alt={thumbnail.alt} />
+    </div>
+    <div class="summary">
+      <h3>{title}</h3>
+      <div class="data">
+        <p class="category">{category.title}</p>
+        <time class="time" datetime={DateTime}>{PostingTime}</time>
+      </div>
+    </div>
+  </a>
+</article>
+
+<style lang="scss">
+  .item {
+    overflow: hidden;
+    transition:
+      translate 0.3s $easeInOutBack,
+      box-shadow 0.3s ease;
+
+    @include media-pc {
+      border-radius: rem(10);
+      &:hover {
+        z-index: 100;
+        background: #ffffff;
+        box-shadow:
+          rem(13) rem(13) rem(26) #f0f0f0,
+          rem(-13) rem(-13) rem(26) #ffffff;
+        translate: 0 rem(-4);
+      }
+    }
+    @include media-sp {
+      border-radius: vw(10);
+    }
+
+    .thumbnail {
+      width: 100%;
+      aspect-ratio: 3 / 1;
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: scale 3s ease-in-out;
+      }
+    }
+    .summary {
+      @include media-pc {
+        padding: rem(10) rem(10) rem(20);
+        h3 {
+          font-size: rem(14);
+        }
+      }
+      @include media-sp {
+        padding: vw(10) 0 vw(20);
+        h3 {
+          font-size: vw(13);
+        }
+      }
+
+      .data {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        @include media-pc {
+          margin-top: rem(20);
+          font-size: rem(11);
+        }
+        @include media-sp {
+          margin-top: vw(20);
+          font-size: vw(10);
+        }
+        .category {
+          width: max-content;
+          padding: 0.1em 0.8em;
+          background-color: $color-gray;
+          color: #fff;
+          @include font-Manrope(200);
+
+          @include media-pc {
+            border-radius: rem(4);
+          }
+          @include media-sp {
+            border-radius: vw(4);
+          }
+        }
+        time {
+          color: $color-gray;
+          letter-spacing: .05em;
+          @include font-Manrope(200);
+        }
+      }
+    }
+  }
+</style>

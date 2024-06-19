@@ -25,140 +25,141 @@ const { title } = Astro.props;
   <body>
     <Header />
     <slot />
-    <!-- <Footer /> -->
-  </body><style is:global lang="scss">
-    html {
-      @include media-pc {
-        font-size: vw-pc(10);
-      }
-      @include media-sp {
-        font-size: vw-sp(10);
-      }
-    }
+  </body>
+</html>
 
-    body {
-      line-height: 1.6;
-      @include font-gothic($weight-regular);
-      color: $color-font;
-      letter-spacing: 0.03em;
-      @include media-pc {
-        font-size: rem(16);
-      }
-      @include media-sp {
-        font-size: vw(13);
-      }
+<style is:global lang="scss">
+  html {
+    @include media-pc {
+      font-size: vw-pc(10);
     }
-
-    img {
-      width: 100%;
-      height: auto;
-      vertical-align: bottom;
+    @include media-sp {
+      font-size: vw-sp(10);
     }
+  }
 
-    a {
-      color: $color-font;
-      text-decoration: none;
+  body {
+    line-height: 1.6;
+    @include font-gothic($weight-regular);
+    color: $color-font;
+    letter-spacing: 0.03em;
+    @include media-pc {
+      font-size: rem(16);
     }
-
-    em {
-      font-style: normal;
-      font-weight: $weight-bold;
+    @include media-sp {
+      font-size: vw(13);
     }
+  }
 
-    input,
-    button,
-    select,
-    textarea {
-      width: 0;
-      height: 0;
-      margin: 0;
-      padding: 0;
-      background: none;
-      border: none;
-      border-radius: 0;
-      outline: none;
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      appearance: none;
-    }
+  img {
+    width: 100%;
+    height: auto;
+    vertical-align: bottom;
+  }
 
-    textarea {
-      resize: vertical;
-    }
+  a {
+    color: $color-font;
+    text-decoration: none;
+  }
 
-    main {
-      // @include media-pc {
-      //   margin-top: rem(100);
-      // }
-      // @include media-sp {
-      //   margin-top: vw(60);
-      // }
-    }
-    @import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Noto+Sans+JP:wght@100..900&display=swap");
+  em {
+    font-style: normal;
+    font-weight: $weight-bold;
+  }
 
-    // sp, pc
-    // ----------------------------------------------------------
+  input,
+  button,
+  select,
+  textarea {
+    width: 0;
+    height: 0;
+    margin: 0;
+    padding: 0;
+    background: none;
+    border: none;
+    border-radius: 0;
+    outline: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
+
+  textarea {
+    resize: vertical;
+  }
+
+  main {
+    // @include media-pc {
+    //   margin-top: rem(100);
+    // }
+    // @include media-sp {
+    //   margin-top: vw(60);
+    // }
+  }
+  @import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Noto+Sans+JP:wght@100..900&display=swap");
+
+  // sp, pc
+  // ----------------------------------------------------------
+  ._sp {
+    display: none !important;
+  }
+  ._pc {
+    display: block !important;
+  }
+
+  @include media-sp {
     ._sp {
-      display: none !important;
-    }
-    ._pc {
       display: block !important;
     }
-
-    @include media-sp {
-      ._sp {
-        display: block !important;
-      }
-      ._pc {
-        display: none !important;
-      }
+    ._pc {
+      display: none !important;
     }
+  }
 
-    // margin padding
-    // ----------------------------------------------------------
-    $space: 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60;
-    @each $prefix in $space {
-      // top
-      .mt#{$prefix} {
-        margin-top: #{$prefix}px !important;
-      }
-      .pt#{$prefix} {
-        padding-top: #{$prefix}px !important;
-      }
-      // right
-      .mr#{$prefix} {
-        margin-right: #{$prefix}px !important;
-      }
-      .pr#{$prefix} {
-        padding-right: #{$prefix}px !important;
-      }
-      // bottom
-      .mb#{$prefix} {
-        margin-bottom: #{$prefix}px !important;
-      }
-      .pb#{$prefix} {
-        padding-bottom: #{$prefix}px !important;
-      }
-      // left
-      .ml#{$prefix} {
-        margin-left: #{$prefix}px !important;
-      }
-      .pl#{$prefix} {
-        padding-left: #{$prefix}px !important;
-      }
+  // margin padding
+  // ----------------------------------------------------------
+  $space: 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60;
+  @each $prefix in $space {
+    // top
+    .mt#{$prefix} {
+      margin-top: #{$prefix}px !important;
     }
-  </style>
-
-  <script>
-    import Lenis from "@studio-freight/lenis";
-
-    const lenis = new Lenis();
-
-    function raf(time: any) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
+    .pt#{$prefix} {
+      padding-top: #{$prefix}px !important;
     }
+    // right
+    .mr#{$prefix} {
+      margin-right: #{$prefix}px !important;
+    }
+    .pr#{$prefix} {
+      padding-right: #{$prefix}px !important;
+    }
+    // bottom
+    .mb#{$prefix} {
+      margin-bottom: #{$prefix}px !important;
+    }
+    .pb#{$prefix} {
+      padding-bottom: #{$prefix}px !important;
+    }
+    // left
+    .ml#{$prefix} {
+      margin-left: #{$prefix}px !important;
+    }
+    .pl#{$prefix} {
+      padding-left: #{$prefix}px !important;
+    }
+  }
+</style>
 
+<script>
+  import Lenis from "@studio-freight/lenis";
+
+  const lenis = new Lenis();
+
+  function raf(time: any) {
+    lenis.raf(time);
     requestAnimationFrame(raf);
-  </script>
-</html>
+  }
+
+  requestAnimationFrame(raf);
+</script>
